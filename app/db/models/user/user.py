@@ -6,16 +6,10 @@ from pydantic import BaseModel
 
 
 class User(BaseModel):
-    id: Union[UUID]
+    id: Union[UUID,int]
     name: str
     note: Optional[str]
     active: bool
-    created_date: datetime
+    created_date: datetime = datetime.now()
 
-    def to_json(self):
-        return {
-            'name': self.name,
-            'note': self.note,
-            'active': self.active,
-            'created_date': self.created_date,
-        }
+    
