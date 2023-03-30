@@ -36,6 +36,8 @@ def read_item(instagram_username:str, item_id: int):
     print("sample output")
     dic = get_item_by_id(instagram_username, item_id)
     print(dic)
+    if(dic==None):
+        dic={}
     dic["id"] = 1 
     dic["name"] = "Zip Tote Basket"
     dic["color"] = "White and black"
