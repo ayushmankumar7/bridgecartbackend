@@ -1,8 +1,7 @@
-from fastapi import APIRouter
+from fastapi import APIRouter,Request
 # from schemas.user import User
-from api.v1.endpoints.data import get_item_by_id, get_item_ids
 
-router = APIRouter()
+srouter = APIRouter()
 
 # @router.post('/')
 # def create_user(user: User):
@@ -31,34 +30,36 @@ router = APIRouter()
 #         return {'status': 'error', 'message': 'An exception occurred'}
 
 
-@router.get("/{instagram_username}/items/{item_id}")
-def read_item(instagram_username:str, item_id: int):
-    print("sample output")
-    dic = get_item_by_id(instagram_username, item_id)
-    print(dic)
-    if(dic==None):
-        dic={}
-    dic["id"] = 1 
-    dic["name"] = "Zip Tote Basket"
-    dic["color"] = "White and black"
-    dic["price"] = "Rs 1400"
+# @router.get("/{instagram_username}/items/{item_id}")
+# def read_item(instagram_username:str, item_id: int):
+#     print("sample output")
+#     dic = get_item_by_id(instagram_username, item_id)
+#     print(dic)
+#     if(dic==None):
+#         dic={}
+#     dic["id"] = 1 
+#     dic["name"] = "Zip Tote Basket"
+#     dic["color"] = "White and black"
+#     dic["price"] = "Rs 1400"
     
-    return [dic]
+#     return [dic]
 
-@router.get("/{instagram_username}/items/get_products/")
-def get_page(instagram_username: str):
-    items = []
-    ids = get_item_ids(instagram_username)
-    print(ids)
-    for id in ids[1:]:
-        item = get_item_by_id(instagram_username, id)
-        item["id"] = 1 
-        item["name"] = "Zip Tote Basket"
-        item["color"] = "White and black"
-        item["price"] = "Rs 1400"
-        items.append(item)
-    return items
+# @router.get("/{instagram_username}/items/get_products/")
+# def get_page(instagram_username: str):
+#     items = []
+#     ids = get_item_ids(instagram_username)
+#     print(ids)
+#     for id in ids[1:]:
+#         item = get_item_by_id(instagram_username, id)
+#         item["id"] = 1 
+#         item["name"] = "Zip Tote Basket"
+#         item["color"] = "White and black"
+#         item["price"] = "Rs 1400"
+#         items.append(item)
+#     return items
 
-@router.get("/{instagram_username}/items/product_ids/")
-def read_items(instagram_username: str):
-    return get_item_ids(instagram_username)
+# @router.get("/{instagram_username}/items/product_ids/")
+# def read_items(instagram_username: str):
+#     return get_item_ids(instagram_username)
+
+
