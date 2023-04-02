@@ -26,3 +26,17 @@ async def get_product_by_id(username : str,id: str,response:Response):
         print(e)
         response.status_code = 400
         return {"error":str(e)}
+
+@router.get("/{username}/product-by-category/{category}")
+async def get_product_by_id(username : str,category: str,response:Response):
+    try:
+        productList = Product.get_by_category(username=username,category=category)
+        resList = []
+        for product in productList:
+            resList.append(product.dict())
+        return resList
+
+    except Exception as e:
+        print(e)
+        response.status_code = 400
+        return {"error":str(e)}
