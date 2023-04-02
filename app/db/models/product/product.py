@@ -17,6 +17,7 @@ class Product(BaseModel):
     id :Union[UUID,int]
     title: str
     caption : Optional[str]
+    description: Optional[str]
     image : list
     price : Optional[float]
     created_at : datetime = datetime.now()
@@ -27,8 +28,19 @@ class Product(BaseModel):
     def create(cls,**kwargs):
         obj = cls(**kwargs)
         db.collection("Users").document(f"{kwargs['username']}").collection("Products").document(f"{obj.id}").set(obj.dict())
+        db.collection("Users").document(f"{kwargs['username']}").collection("Categories").document(obj.category).collection("Products").document(f"{obj.id}").set({"is_active":True})
         return obj
-
-    
+    @classmethod
+    def get_by_id(cls,username,id):
+        itemDict = db.collection("Users").document(f"{username}").collection("Products").document(f"{id}").get().to_dict()
+        return cls(**itemDict)
+    @classmethod
+    def get_by_category(cls,username,category):
+        products = db.collection("Users").document(f"{username}").collection("Categories").document(category).collection("Products").stream()
+        product_obj= []
+        for product in products:        
+            product_obj.append(cls.get_by_id(username,product.id))
+       
+        return product_obj
 
 

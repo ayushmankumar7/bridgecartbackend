@@ -2,6 +2,9 @@ from fastapi import APIRouter,Request, Response
 from db.models.product.product import Product
 router = APIRouter()
 
+@router.get("/product/")
+async def create_product(request: Request, response: Response):
+    return {"message":"No get yet"}
 @router.post("/product/")
 async def create_product(request: Request, response: Response):
     try:    
@@ -12,3 +15,14 @@ async def create_product(request: Request, response: Response):
         print(e)
         response.status_code = 400
         return {"message":"Provide proper json","error":str(e)}
+
+
+@router.get("/{username}/product/{id}")
+async def get_product_by_id(username : str,id: str,response:Response):
+    try:
+        obj = Product.get_by_id(username=username,id=id)
+        return obj.dict()
+    except Exception as e:
+        print(e)
+        response.status_code = 400
+        return {"error":str(e)}
