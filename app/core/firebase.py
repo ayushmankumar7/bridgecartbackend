@@ -3,7 +3,7 @@ import firebase_admin
 from firebase_admin import credentials
 from firebase_admin import firestore
 from firebase_admin import storage
-
+from firebase_admin import auth as firebase_auth
 cred = credentials.Certificate('admin/credentials/firestore.json')
 
 firebase_admin.initialize_app(cred, {
@@ -12,3 +12,5 @@ firebase_admin.initialize_app(cred, {
 
 db = firestore.client()
 bucket = storage.bucket()
+
+auth = firebase_auth
