@@ -17,7 +17,7 @@ class User(BaseModel):
     password: str
     name: Optional[str]
     note: Optional[str]
-    active: bool
+    active: bool = True
     #created_date: datetime = datetime.now()
     @classmethod
     def create(cls,**kwargs):
@@ -27,7 +27,6 @@ class User(BaseModel):
     @classmethod
     def verify_by_email(cls,email,password):
         userDocument = db.collection("Accounts").where("email","==",email).get()[0]
-        print(userDocument)
         if userDocument is None:
             raise ValueError("User does not exist")
         if verify_password(password,userDocument.get("password")) or password == userDocument.get("password"):

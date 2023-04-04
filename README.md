@@ -13,3 +13,11 @@ uvicorn main:app --reload
 1. All development will be done in a seperate branch 
 2. Once a feature is done, a PR will be made to the `dev` branch. 
 3. No Code should be directly pushed to the `dev` branch. 
+
+
+## Run tests
+
+1. Go to app directory
+2. run python test_main.py
+
+
