@@ -12,7 +12,6 @@ async def create_product(request: Request, response: Response):
         Product.create(**data)
         return {"message":"succesfully created"}
     except Exception as e:
-        print(e)
         response.status_code = 400
         return {"message":"Provide proper json","error":str(e)}
 
