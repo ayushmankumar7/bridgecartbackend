@@ -39,6 +39,74 @@ def test_get_products_by_category():
     print(response.json())
     assert response.status_code == status.HTTP_200_OK
     assert response.json() == [{'id': 123456, 'title': 'Django book', 'caption': 'blablabla', 'description': 'blabla', 'image': [], 'price': 45.0, 'created_at': '2023-04-05T02:53:08.845396+00:00', 'category': 'book', 'variant': 'blue'}, {'id': 1234567, 'title': 'Django book', 'caption': 'blablabla', 'description': 'blabla', 'image': [], 'price': 45.0, 'created_at': '2023-04-05T03:04:45.924773+00:00', 'category': 'book', 'variant': 'blue'}]
+def test_get_products_by_category(): 
+    username = "governedbyprudence"
+    response = client.get(f"{base_url}/{username}/product/")
+    print(response.json())
+    assert response.status_code == status.HTTP_200_OK
+    assert response.json() == {
+    "items": [
+        {
+        "id": 1234,
+        "title": "Mango book",
+        "caption": "blablabla",
+        "description": "blabla",
+        "image": [],
+        "price": 45.0,
+        "created_at": "2023-04-05T08:47:17.230890+00:00",
+        "category": "cookies",
+        "variant": "blue"
+        },
+        {
+        "id": 123456,
+        "title": "Django book",
+        "caption": "blablabla",
+        "description": "blabla",
+        "image": [],
+        "price": 45.0,
+        "created_at": "2023-04-05T02:53:08.845396+00:00",
+        "category": "book",
+        "variant": "blue"
+        },
+        {
+        "id": 1234567,
+        "title": "Django book",
+        "caption": "blablabla",
+        "description": "blabla",
+        "image": [],
+        "price": 45.0,
+        "created_at": "2023-04-05T03:04:45.924773+00:00",
+        "category": "book",
+        "variant": "blue"
+        },
+        {
+        "id": 12345678,
+        "title": "Nice book",
+        "caption": "blablabla",
+        "description": "blabla",
+        "image": [],
+        "price": 45.0,
+        "created_at": "2023-04-05T03:14:20.508767+00:00",
+        "category": "cookies",
+        "variant": "blue"
+        },
+        {
+        "id": 653375,
+        "title": "753",
+        "caption": "blablabla",
+        "description": "375",
+        "image": [],
+        "price": 374.0,
+        "created_at": "2023-04-05T11:32:09.768859+00:00",
+        "category": "cookies",
+        "variant": "blue"
+        }
+    ],
+    "total": 5,
+    "page": 1,
+    "size": 10,
+    "pages": 1
+    }
 
 # user tests
 
