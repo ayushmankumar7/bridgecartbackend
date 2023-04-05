@@ -42,5 +42,16 @@ class Product(BaseModel):
             product_obj.append(cls.get_by_id(username,product.id))
        
         return product_obj
+    @classmethod
+    def get_by_username(cls,username):
+        products = db.collection("Users").document(f"{username}").collection("Products").stream()
+        product_obj= []
+        for product in products:        
+            try:
+                product_obj.append(cls(**product.to_dict()))
+            except Exception as e:
+                pass
+        product_obj.sort(key=lambda x:x.created_at, reverse=True)
+        return product_obj
 
 

@@ -1,10 +1,20 @@
 from fastapi import APIRouter,Request, Response
 from db.models.product.product import Product
+from fastapi_pagination import paginate,Params
 router = APIRouter()
 
-@router.get("/product/")
-async def create_product(request: Request, response: Response):
-    return {"message":"No get yet"}
+@router.get("/{username}/product/")
+async def create_product(username: str,request: Request, response: Response):
+    try:    
+        productList = Product.get_by_username(username=username)
+        resList = []
+        for product in productList:
+            resList.append(product.dict())
+        return paginate(resList,params=Params(size=10))
+    except Exception as e:
+        response.status_code = 400
+        return {"error":str(e)}
+
 @router.post("/product/")
 async def create_product(request: Request, response: Response):
     try:    
@@ -27,7 +37,7 @@ async def get_product_by_id(username : str,id: str,response:Response):
         return {"error":str(e)}
 
 @router.get("/{username}/product-by-category/{category}")
-async def get_product_by_id(username : str,category: str,response:Response):
+async def get_product_by_category(username : str,category: str,response:Response):
     try:
         productList = Product.get_by_category(username=username,category=category)
         resList = []
