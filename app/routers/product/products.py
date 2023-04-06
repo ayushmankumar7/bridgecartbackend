@@ -52,6 +52,7 @@ async def update_product(request: Request,
                          auth :Annotated[User,"Authentication"] =Depends(IsAuthenticated)):
     try:    
         data = await request.json()
+        data["username"]=auth.id
         Product(**data).save()
         return {"message":"succesfully updated"}
     except Exception as e:
@@ -63,6 +64,7 @@ async def delete_product(request: Request,
                          auth :Annotated[User,"Authentication"]=Depends(IsAuthenticated)):
     try:    
         data = await request.json()
+        data["username"]=auth.id
         Product(**data).delete()
         return {"message":"succesfully deleted"}
     except Exception as e:
