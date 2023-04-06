@@ -46,6 +46,29 @@ async def create_product(request: Request,
     except Exception as e:
         response.status_code = 400
         return {"message":"Provide proper json","error":str(e)}
+@router.patch("/product/")
+async def update_product(request: Request, 
+                         response: Response, 
+                         auth :Annotated[User,"Authentication"] =Depends(IsAuthenticated)):
+    try:    
+        data = await request.json()
+        Product(**data).save()
+        return {"message":"succesfully updated"}
+    except Exception as e:
+        response.status_code = 400
+        return {"message":"Provide proper json","error":str(e)}
+@router.delete("/product/")
+async def delete_product(request: Request, 
+                         response: Response, 
+                         auth :Annotated[User,"Authentication"]=Depends(IsAuthenticated)):
+    try:    
+        data = await request.json()
+        Product(**data).delete()
+        return {"message":"succesfully deleted"}
+    except Exception as e:
+        response.status_code = 400
+        return {"message":"Provide proper json","error":str(e)}
+
 
 
 @router.get("/{username}/product/{id}")
@@ -57,6 +80,8 @@ async def get_product_by_id(username : str,id: str,response:Response):
         print(e)
         response.status_code = 400
         return {"error":str(e)}
+
+
 
 @router.get("/{username}/product-by-category/{category}")
 async def get_product_by_category(username : str,category: str,response:Response):
