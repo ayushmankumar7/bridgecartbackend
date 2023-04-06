@@ -18,7 +18,9 @@ def test_create_product():
         "price":45.0,
         "category":"cookies",
         "variant":"blue",
-        "username":"governedbyprudence"
+        #"username":"governedbyprudence"
+    },headers={
+        "Authorization":"Bearer <token>"
     })
     assert response.status_code == status.HTTP_200_OK
 

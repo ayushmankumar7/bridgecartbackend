@@ -1,6 +1,8 @@
-from fastapi import APIRouter,Request, Response
+from fastapi import APIRouter,Request, Response , Depends
 from db.models.user.user import User
 from utils.user.user import create_jwt
+from typing import Annotated
+from utils.user.auth import IsAuthenticated
 # from schemas.user import User
 
 router = APIRouter()
@@ -27,9 +29,7 @@ async def login(request: Request,response: Response):
         print(e)
         response.status_code = 400
         return {"error":str(e)}
-@router.post("/me")
-async def me(request: Request,response: Response):
-    token = request.headers.get("Authorization").split(" ")[-1]
-    user = User.get_by_token(token)
-    user.password = ""
-    return user.dict()
+@router.get("/me")
+async def me(request: Request,response: Response,auth: Annotated[User,"Authentication"] =Depends(IsAuthenticated)):
+    auth.password = ""
+    return auth.dict()
