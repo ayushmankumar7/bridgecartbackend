@@ -6,6 +6,7 @@ from typing import Annotated
 from utils.user.auth import IsAuthenticated
 router = APIRouter()
 
+
 @router.get("/{username}/product/")
 async def create_product(username: str,request: Request, response: Response):
     try:    
@@ -17,6 +18,8 @@ async def create_product(username: str,request: Request, response: Response):
     except Exception as e:
         response.status_code = 400
         return {"error":str(e)}
+    
+
 
 @router.get("/product/")
 async def view_product(request: Request, 
@@ -33,6 +36,8 @@ async def view_product(request: Request,
     except Exception as e:
         response.status_code = 400
         return {"error":str(e)}
+    
+
 
 @router.post("/product/")
 async def create_product(request: Request, 
@@ -46,6 +51,8 @@ async def create_product(request: Request,
     except Exception as e:
         response.status_code = 400
         return {"message":"Provide proper json","error":str(e)}
+    
+
 @router.patch("/product/")
 async def update_product(request: Request, 
                          response: Response, 
@@ -58,6 +65,9 @@ async def update_product(request: Request,
     except Exception as e:
         response.status_code = 400
         return {"message":"Provide proper json","error":str(e)}
+    
+
+
 @router.delete("/product/")
 async def delete_product(request: Request, 
                          response: Response, 

@@ -32,6 +32,14 @@ class User(BaseModel):
         if verify_password(password,userDocument.get("password")) or password == userDocument.get("password"):
             return True
         return False
+    
+    @classmethod
+    def get_by_firebaseId(cls,firebase_id):
+        try:
+            userDocument = db.collection("Accounts").where("firebase_id","==",firebase_id).get()[0].to_dict()
+            return cls(**userDocument)
+        except Exception as e:
+            return None
     @classmethod
     def get_by_email(cls,email,password):
         if cls.verify_by_email(email,password):
