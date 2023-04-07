@@ -13,6 +13,7 @@ async def sign_up(request: Request,response: Response):
         data = await request.json()
         User.create(**data)
         return {"message":"Registration successful"}
+    
     except Exception as e:
         response.status_code = 400
         return {"error":str(e)}
@@ -26,6 +27,7 @@ async def login(request: Request,response: Response):
         return {
             "access":create_jwt(user),
         }
+    
     except Exception as e:
         print(e)
         response.status_code = 400
@@ -39,17 +41,18 @@ async def me(request: Request,response: Response,auth: Annotated[User,"Authentic
 @router.post("/google/login")
 async def googlelogin(request: Request,response: Response):
     try:
-        data =await request.json()
-        
+
+        data =await request.json()    
         a=verify_google_token(data["token"])
         user={}
+        
         if(a is not None): 
             user = User.get_by_firebaseId(a["uid"])
             return {
                     "access":create_jwt(user),
                 }
+
     except Exception as e:
         print(e)
         response.status_code = 400
         return {"error":str(e)}
-
