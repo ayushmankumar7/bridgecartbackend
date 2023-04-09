@@ -1,5 +1,5 @@
 from fastapi import APIRouter, Depends,Request, Response
-from db.models.product.product import Product
+from db.models.product.product import Product,Category
 from fastapi_pagination import paginate,Params
 from db.models.user.user import User
 from typing import Annotated
@@ -92,6 +92,34 @@ async def get_categories(request: Request,
             raise ValueError("No categories found for user")
         return {"categories":categories}
     
+    except Exception as e:
+        response.status_code = 400
+        return {"error":str(e)}
+
+@router.patch("/product/categories/{category}")
+async def update_category(
+                         category:str,
+                         request: Request, 
+                         response: Response, 
+                         auth :Annotated[User,"Authentication"]=Depends(IsAuthenticated)):
+    try:    
+        data =await request.json()
+        Category.set_category(username=auth.id,category=category,data=data)    
+        return {"message":"successful"}
+    except Exception as e:
+        response.status_code = 400
+        return {"error":str(e)}
+
+@router.delete("/product/categories/{category}")
+async def delete_category(
+                         category:str,
+                         request: Request, 
+                         response: Response, 
+                         auth :Annotated[User,"Authentication"]=Depends(IsAuthenticated)):
+    try:    
+        data =await request.json()
+        Category.delete_category(username=auth.id,category=category)    
+        return {"message":"successful"}
     except Exception as e:
         response.status_code = 400
         return {"error":str(e)}

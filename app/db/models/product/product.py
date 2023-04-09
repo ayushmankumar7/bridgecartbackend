@@ -4,6 +4,19 @@ from typing import Union,Optional
 from pydantic import BaseModel
 from core.firebase import db
 
+class Category(BaseModel):
+    id: str
+    image: Optional[str]
+    description: Optional[str]
+
+    @classmethod 
+    def set_category(cls,username,category,data):
+        db.collection("Users").document(f"{username}").collection("Categories").document(category).set(data,merge=True)
+
+    @classmethod
+    def delete_category(cls,username,category):
+        db.collection("Users").document(f"{username}").collection("Categories").document(category).delete()
+
 class Variant(BaseModel):
     name:str
     value:list[str]
@@ -53,10 +66,11 @@ class Product(BaseModel):
         product_obj.sort(key=lambda x:x.created_at, reverse=True)
         return product_obj
 
+
     @classmethod
     def get_all_categories(cls,userId):
         categories = db.collection("Users").document(f"{userId}").collection("Categories").stream()
-        return [i.id for i in categories]
+        return [{"category":i.id,"metadata":i.to_dict()} for i in categories]
 
     def save(self):
         data = self.dict()
