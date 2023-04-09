@@ -17,7 +17,15 @@ def test_create_product():
         "image":[],
         "price":45.0,
         "category":"cookies",
-        "variant":"blue",
+        "variant":[{
+            "name":"color",
+            "value":["blue","black","green"]
+        },
+        {
+            "name":"size",
+            "value":["xl","l","m","s"]
+        },
+        ],
         #"username":"governedbyprudence"
     },headers={
         "Authorization":"Bearer <token>"
