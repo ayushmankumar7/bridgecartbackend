@@ -53,6 +53,11 @@ class Product(BaseModel):
         product_obj.sort(key=lambda x:x.created_at, reverse=True)
         return product_obj
 
+    @classmethod
+    def get_all_categories(cls,userId):
+        categories = db.collection("Users").document(f"{userId}").collection("Categories").stream()
+        return [i.id for i in categories]
+
     def save(self):
         data = self.dict()
         for key in self.dict():
