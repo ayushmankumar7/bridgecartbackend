@@ -39,3 +39,4 @@ parts/
 sdist/
 
 var/
+.vercel
