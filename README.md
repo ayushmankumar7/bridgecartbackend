@@ -21,3 +21,4 @@ uvicorn main:app --reload
 2. run python test_main.py
 
 
+Deployed API : https://p4od2fj9pc.execute-api.ap-south-1.amazonaws.com/dev/api/v1
