@@ -60,7 +60,7 @@ jobs:
   continuous-deployment:
     runs-on: ubuntu-latest
     needs: [continuous-integration]
-    if: github.ref == 'refs/heads/main'
+    if: github.ref == 'refs/heads/dev'
     steps:
 
       - name: Install AWS CLI
