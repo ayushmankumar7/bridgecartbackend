@@ -14,7 +14,7 @@ jobs:
       
       # Step 2
       - name: Set up Python 
-        uses: actions/setup-python@v2
+        uses: actions/setup-python@v3
         with:
           python-version: 3.9
           architecture: x64
@@ -23,7 +23,7 @@ jobs:
         run: pip3 install virtualenv
       # Step 4
       - name:  Setup Virtual env
-        uses: actions/cache@v2
+        uses: actions/cache@v3
         id: cache-venv
         with:
           path: venv
@@ -51,7 +51,7 @@ jobs:
       
       # Step 9
       - name: Upload zip file artifact
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v3
         with:
           name: api
           path: api.zip
@@ -73,7 +73,7 @@ jobs:
           AWS_DEFAULT_REGION: ${{ secrets.AWS_DEFAULT_REGION }}
 
       - name: Download Lambda api.zip
-        uses: actions/download-artifact@v2
+        uses: actions/download-artifact@v3
         with:
           name: api
 
