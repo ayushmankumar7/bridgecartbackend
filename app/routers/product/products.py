@@ -10,7 +10,7 @@ router = APIRouter()
 
 
 @router.get("/{username}/product/")
-async def create_product(username: str,request: Request, response: Response):
+async def get_username_product(username: str,request: Request, response: Response):
     
     try:    
         productList = Product.get_by_username(username=username)

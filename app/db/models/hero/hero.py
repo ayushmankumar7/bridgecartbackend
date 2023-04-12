@@ -4,6 +4,7 @@ from random import random
 from core.firebase import db
 
 class Banner(BaseModel):
+    id : Optional[str]
     image : str
     title : str
     subtitle : Optional[str]
@@ -25,10 +26,14 @@ class Banner(BaseModel):
     def get_by_username(cls,username):
         colSnap = db.collection("Hero").document(username).collection("Banner").stream() 
         objList = [] 
-
-        for doc in colSnap:
-            objList.append(cls(**doc))
-        return objList
+        try:
+            for doc in colSnap:
+                 data = doc.to_dict()
+                 data["id"]=doc.id 
+                 objList.append(cls(**data))
+            return objList
+        except Exception as e:
+            print(e)
     
     @classmethod 
     def get_by_id(cls,username,id):
@@ -38,6 +43,7 @@ class Banner(BaseModel):
 
 
 class CTA(BaseModel):
+    id : Optional[str]
     image : str
     title : str
     subtitle : Optional[str]
@@ -61,10 +67,14 @@ class CTA(BaseModel):
     def get_by_username(cls,username):
         colSnap = db.collection("Hero").document(username).collection("CTA").stream() 
         objList = [] 
-
-        for doc in colSnap:
-            objList.append(cls(**doc))
-        return objList
+        try:
+            for doc in colSnap:
+                 data = doc.to_dict()
+                 data["id"]=doc.id 
+                 objList.append(cls(**data))
+            return objList
+        except Exception as e:
+            print(e)
     
     @classmethod 
     def get_by_id(cls,username,id):
@@ -73,12 +83,13 @@ class CTA(BaseModel):
 
 
 class Social(BaseModel):
-    facebook = Optional[str]
-    instagram = Optional[str]
-    website = Optional[str]
-    linkedIn = Optional[str]
-    telegram = Optional[str]
-    facebook = Optional[str]
+    id : Optional[str]
+    facebook : Optional[str]
+    instagram : Optional[str]
+    website : Optional[str]
+    linkedIn : Optional[str]
+    telegram : Optional[str]
+    facebook : Optional[str]
 
     @classmethod 
     def create(cls,username,**kwargs):
@@ -97,10 +108,14 @@ class Social(BaseModel):
     def get_by_username(cls,username):
         colSnap = db.collection("Hero").document(username).collection("Social").stream() 
         objList = [] 
-
-        for doc in colSnap:
-            objList.append(cls(**doc))
-        return objList
+        try:
+            for doc in colSnap:
+                 data = doc.to_dict()
+                 data["id"]=doc.id 
+                 objList.append(cls(**data))
+            return objList
+        except Exception as e:
+            print(e)
     
     @classmethod 
     def get_by_id(cls,username,id):
@@ -109,6 +124,7 @@ class Social(BaseModel):
 
 
 class Faq(BaseModel):
+    id : Optional[str]
     question: str
     answer: str
 
@@ -129,10 +145,14 @@ class Faq(BaseModel):
     def get_by_username(cls,username):
         colSnap = db.collection("Hero").document(username).collection("FAQ").stream() 
         objList = [] 
-
-        for doc in colSnap:
-            objList.append(cls(**doc))
-        return objList
+        try:
+            for doc in colSnap:
+                 data = doc.to_dict()
+                 data["id"]=doc.id 
+                 objList.append(cls(**data))
+            return objList
+        except Exception as e:
+            print(e)
     
     @classmethod 
     def get_by_id(cls,username,id):
