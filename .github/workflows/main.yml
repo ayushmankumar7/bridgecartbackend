@@ -29,7 +29,7 @@ jobs:
         
       # Step 6     
       - name: Run Test        
-        run:  cd app && pytest
+        run:  cd app && python test_main.py
       
       # Step 7
       - name: Create Zipfile archive of Dependencies
