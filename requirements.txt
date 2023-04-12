@@ -12,7 +12,7 @@ cryptography==40.0.1
 ecdsa==0.18.0
 exceptiongroup==1.1.1
 fastapi==0.95.0
-fastapi-pagination==0.11.4
+fastapi-pagination
 firebase-admin==6.1.0
 google-api-core==2.11.0
 google-api-python-client==2.83.0
