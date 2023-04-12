@@ -5,6 +5,8 @@ from fastapi_pagination import add_pagination
 from admin.mainRouter import main_router
 from core.config import config
 
+from mangum import Mangum
+
 app = FastAPI()
 
 origins = [
@@ -28,5 +30,8 @@ app.add_middleware(
 app.include_router(main_router, prefix=config.API_V1_STR)
 
 add_pagination(app)
+
+handler = Mangum(app)
+
 if __name__ == "__main__":
     uvicorn.run("main:app",host="0.0.0.0", port=8000, reload=True)
