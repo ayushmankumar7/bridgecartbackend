@@ -3,9 +3,8 @@ name: CI/CD Pipeline
 on:
   push:
     branches: [ main ]
-
+    
 jobs:
-
   continuous-integration:
     runs-on: ubuntu-latest
 
